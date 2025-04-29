@@ -10,6 +10,9 @@ public class Movement : MonoBehaviour
     void Start()
     {
         print("hello gamers!");
+        walkAudio = GetComponent<AudioSource>();
+        lastPosition = transform.position;
+
         
     }
     private void Awake()
@@ -26,6 +29,10 @@ public class Movement : MonoBehaviour
     public int maxJump;
     public TextMeshProUGUI jumpText;
     public Animator anim;
+    private AudioSource walkAudio;
+    private float distanceWalked = 0f;
+    private Vector3 lastPosition;
+
 
    // public Animator graphicsAnimator;
 
@@ -75,6 +82,30 @@ public class Movement : MonoBehaviour
             jumpCount = maxJump;
         }
     anim.SetBool("isWalk",Input.GetAxisRaw("Horizontal") !=0);
+
+
+bool isWalking = Input.GetAxisRaw("Horizontal") != 0;
+
+if (isWalking)
+{
+    if (!walkAudio.isPlaying)
+        walkAudio.Play();
+
+    distanceWalked += Vector3.Distance(transform.position, lastPosition);
+    walkAudio.pitch = Mathf.Clamp(1f + distanceWalked * 0.15f, 1f, 3f);
+}
+else
+{
+    if (walkAudio.isPlaying)
+        walkAudio.Stop();
+
+    distanceWalked = 0f;
+    walkAudio.pitch = 1f;
+}
+
+lastPosition = transform.position;
+
+
 
     }
 
