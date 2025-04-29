@@ -10,11 +10,11 @@ public class Movement : MonoBehaviour
     void Start()
     {
         print("hello gamers!");
-        //graphicsAnimator = this.GetComponentInChildren<Animator>();
+        
     }
     private void Awake()
     {
-
+        anim=GetComponent<Animator>();
     }
     
     public LayerMask mask;
@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour
     public int jumpCount;
     public int maxJump;
     public TextMeshProUGUI jumpText;
+    public Animator anim;
 
    // public Animator graphicsAnimator;
 
@@ -54,13 +55,11 @@ public class Movement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             //when player is walking
-            //graphicsAnimator.SetBool("IsWalking", true);
-            transform.localScale = new Vector2(Input.GetAxisRaw("Horizontal"), 1);
+       
+            transform.localScale = new Vector2((Input.GetAxisRaw("Horizontal")*-1)*2f, 2f);
         }
         else
         {
-
-          //  graphicsAnimator.SetBool("IsWalking", false);
         }
 
         if ((isGrounded || jumpCount > 0) && Input.GetKeyDown(KeyCode.Space))
@@ -75,7 +74,7 @@ public class Movement : MonoBehaviour
         {
             jumpCount = maxJump;
         }
-
+    anim.SetBool("isWalk",Input.GetAxisRaw("Horizontal") !=0);
 
     }
 
