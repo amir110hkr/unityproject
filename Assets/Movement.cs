@@ -34,7 +34,6 @@ public class Movement : MonoBehaviour
     private Vector3 lastPosition;
 
 
-   // public Animator graphicsAnimator;
 
     // Update is called once per frame
     void Update()
@@ -51,7 +50,6 @@ public class Movement : MonoBehaviour
             isGrounded = false;
             
         }
-        //graphicsAnimator.SetBool("Grounded", isGrounded);
 
 
         transform.GetComponent<Rigidbody2D>().velocity =
@@ -61,7 +59,6 @@ public class Movement : MonoBehaviour
 
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
-            //when player is walking
        
             transform.localScale = new Vector2((Input.GetAxisRaw("Horizontal")*-1)*2f, 2f);
         }
